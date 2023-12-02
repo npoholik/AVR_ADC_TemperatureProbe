@@ -1,5 +1,4 @@
 # AVR_ADC_TemperatureProbe
-
 The goal of this project is to incorporate a temperature sensor and servo motor into the atmega32a MCU environment. The analog signal of the temperature sensor will be converted into digital, which will then be read and displayed on the LEDs. Depending on current temperature read, the servo motor will be rotated the appropriate angle to match as well. 
 
 ----------------------------------------------------------------------------------------------------
