@@ -5,8 +5,8 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 ----------------------------------------------------------------------------------------------------
 
 ## ASSUMPTIONS FOR ALL CALCULATIONS:
-	1. Target MCU: AVR atmega32a
-	2. Target MCU Clock: 1 MHz
+1. Target MCU: AVR atmega32a
+2. Target MCU Clock: 1 MHz
 ## Links:
 [MCU: AVR atmega32a](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmega32A-DataSheet-Complete-DS40002072A.pdf)
 
@@ -15,18 +15,18 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 [Temperature Sensor: LM34CA](https://datasheet.octopart.com/LM34DH-National-Semiconductor-datasheet-22596.pdf)
 
 > [!IMPORTANT] 
-	> 1. Other servo motors will vary in required pulse width to accomplish the results listed below
-	> 2. If servo motor becomes unstable, these calculations will have to be adjusted according to the spec sheet of the respective motor
-	> 3. Other temperature sensors will have a different voltage range and will need to be accounted for
+> 1. Other servo motors will vary in required pulse width to accomplish the results listed below
+
+> 2. If servo motor becomes unstable, these calculations will have to be adjusted according to the spec sheet of the respective motor
+
+> 3. Other temperature sensors will have a different voltage range and will need to be accounted for
+
 
 -----------------------------------------------------------------------------------------------------
 
 ## SERVO MOTOR CALCULATIONS/REGISTER VALUES: 
 
 ### The target servo motor hardware had a minimum pulse with of 1 ms for 0 degrees and a max of 2 ms for 180 degrees
-
-	1. Other servo motors will vary in required pulse width to accomplish the results listed below
-	2. If servo motor becomes unstable, these calculations will have to be adjusted according to the spec sheet of the respective motor
 
 ### FOR ALL PERIODS OF 20 MS (ASSUMING NON-INVERTING PWM FOR ALL):
 
@@ -71,7 +71,7 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 	# of counts = 1.67 ms / 64 us = 26.09375 ~= 26
 	OCR0 = # of counts - 1 = 26 - 1 = 25
 
-	6. Output a pulse width of 1.84 ms and period of 20 ms continously
+	Output a pulse width of 1.84 ms and period of 20 ms continously
 		Duty Cycle: 1.84 ms / 20 ms * 100 = 9.2%
 		# of counts = 1.84 ms / 64 us = 28.75 ~= 29
 		OCR0 = # of counts - 1 = 29 - 1 = 28
