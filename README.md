@@ -54,27 +54,27 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 		# of counts = 1.17 ms / 64 us = 18.28125 ~= 18
 		OCR0 = # of counts - 1 = 18 - 1 = 17
 
-	Output a pulse width of 1.33 ms and period of 20 ms continously
+	60 Degrees: Output a pulse width of 1.33 ms and period of 20 ms continously
 		Duty Cycle: 1.33 ms / 20 ms * 100 = 6.65%
 		# of counts = 1.33 ms / 64 us = 20.78125 ~= 21
 		OCR0 = # of counts - 1 = 21 - 1 = 20
 
-	Output a pulse width of 1.5 ms and period of 20 ms continously 
+	90 Degrees: Output a pulse width of 1.5 ms and period of 20 ms continously 
 		Duty Cycle: 1.5 ms / 20 ms * 100 = 7.5%
 		# of counts = 1.5 ms / 64 us = 23.4375 ~= 23
 		OCR0 = # of counts - 1 = 23 - 1 = 22
 
-	Output a pulse width of 1.67 ms and period of 20 ms continously
+	120 Degrees: Output a pulse width of 1.67 ms and period of 20 ms continously
 		Duty Cycle: 1.67 ms / 20 ms * 100 = 8.35 %
 		# of counts = 1.67 ms / 64 us = 26.09375 ~= 26
 		OCR0 = # of counts - 1 = 26 - 1 = 25
 
-	Output a pulse width of 1.84 ms and period of 20 ms continously
+	150 Degrees: Output a pulse width of 1.84 ms and period of 20 ms continously
 		Duty Cycle: 1.84 ms / 20 ms * 100 = 9.2%
 		# of counts = 1.84 ms / 64 us = 28.75 ~= 29
 		OCR0 = # of counts - 1 = 29 - 1 = 28
 
-	Outputs a pulse width of 2 ms and period of 20 ms continously 
+	180 Degrees: Output a pulse width of 2 ms and period of 20 ms continously 
 		Duty Cycle: 2 ms / 20 ms * 100 = 10%
 		# of counts = 2 ms / 64 us = 31.25 ~= 31
 		OCR0 = # of counts - 1 = 31 - 1 = 30
@@ -102,29 +102,28 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 
 	PA0: (ADMUX) MUX4 MUX3 MUX2 MUX1 MUX0 = 0 0 0 0 0 
 
-	ADMUX:  
-		REFS1      REFS0      ADLAR       MUMX4      MUX3     MUX2      MUX1       MUX0 
-		  1          1          1           0         0        0          0          0
-	ADMUX = 0xE0
+		ADMUX:  
+			REFS1      REFS0      ADLAR       MUMX4      MUX3     MUX2      MUX1       MUX0 
+			1          1          1           0         0        0          0          0
+		ADMUX = 0xE0
 
-	Assuming auto-trigger will be used: (ADCSRA) ADATE = 1
+		Assuming auto-trigger will be used: (ADCSRA) ADATE = 1
+		ADCSRA:	
+			ADEN     ADSC       ADATE      ADIF    ADIE      ADPS2       ADPS1      ADPS0  
+			1        0           1         1       0          0           1          1
+		ADCSRA = 0xB3 
 
-	ADCSRA:	
-				ADEN     ADSC       ADATE      ADIF    ADIE      ADPS2       ADPS1      ADPS0  
-				 1        0           1         1       0          0           1          1
-	ADCSRA = 0xB3 
 >[!NOTE]
 >1. Do not start conversion during this (write 0 to ADSC) 
->2. Clear interrupt flag (tells you when conversion is finished)
->3. Do not enable interrupts ADIE
+>2. Clear interrupt flag (tells you when conversion is finished, may have unknown value != 0 at start)
+>3. Do not enable interrupts (ADIE)
 
 	Now setup the special function I/O register for ADATE:
 
-	We will complete a conversion for compare match for Timer0/Counter0:
+		We will complete a conversion for ADIF, or when one conversion finishes (Normal Mode)
 
-	(SFIO) ADTS2 ADTS1 ADTS0 = 0 0 0 
-
-	SFIO: 
-		ADTS2 ADTS1 ADTS0 ... ... ... ... ...
-		0     0     0   (KEEP ALL OTHER BITS THE SAME)
+		(SFIO) ADTS2 ADTS1 ADTS0 = 0 0 0 
+		SFIO: 
+			ADTS2 ADTS1 ADTS0 ... ... ... ... ...
+			  0     0     0   (KEEP ALL OTHER BITS THE SAME)
 
