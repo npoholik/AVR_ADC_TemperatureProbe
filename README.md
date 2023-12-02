@@ -65,9 +65,9 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 		OCR0 = # of counts - 1 = 23 - 1 = 22
 
 	Output a pulse width of 1.67 ms and period of 20 ms continously
-	Duty Cycle: 1.67 ms / 20 ms * 100 = 8.35 %
-	# of counts = 1.67 ms / 64 us = 26.09375 ~= 26
-	OCR0 = # of counts - 1 = 26 - 1 = 25
+		Duty Cycle: 1.67 ms / 20 ms * 100 = 8.35 %
+		# of counts = 1.67 ms / 64 us = 26.09375 ~= 26
+		OCR0 = # of counts - 1 = 26 - 1 = 25
 
 	Output a pulse width of 1.84 ms and period of 20 ms continously
 		Duty Cycle: 1.84 ms / 20 ms * 100 = 9.2%
@@ -82,50 +82,49 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 -----------------------------------------------------------------------------------------------------
 
 ## ANALOG TO DIGITAL CONVERSION: CALCULATIONS BASED ON TARGET HARDWARE TEMPERATURE SENSOR:
-	1. Goal: Read analog voltage from the output of temperature sensor that outputs 10 mV/F:
-	2. Assumption: Single Ended Voltage Range from 0 to 2.56 
+1. Goal: Read analog voltage from the output of temperature sensor that outputs 10 mV/F:
+2. Assumption: Single Ended Voltage Range from 0 to 2.56 
 
-Range = VRH - VRL = 2.56 - 0 = 2.56 V
+### Calculations:
+	Range = VRH - VRL = 2.56 - 0 = 2.56 V
 
-Resolution = Range/[2n] = 2.56/[2^(10)] mV = 2.5 mV
+	Resolution = Range/[2n] = 2.56/[2^(10)] mV = 2.5 mV
 
-(ADMUX)  REFS1 REFS0 = 1 1    <- internal 2.56 voltage reference
+	(ADMUX)  REFS1 REFS0 = 1 1    <- internal 2.56 voltage reference
 
-50 kHz < F(A/D) < 200 kHz <- F(A/D) must be within this range
+	50 kHz < F(A/D) < 200 kHz <- F(A/D) must be within this range
 
-F(A/D)=Fclk(I/O)/(division factor) = 1 MHz / 8 = 125 kHz   
+	F(A/D)=Fclk(I/O)/(division factor) = 1 MHz / 8 = 125 kHz   
 
-Division Factor of 8: (ADCSRA)  ADPS2 ADPS1 ADPS0 = 0 1 1
+	Division Factor of 8: (ADCSRA)  ADPS2 ADPS1 ADPS0 = 0 1 1
 
-Right Adjust: (ADMUX) ADLAR = 1
+	Right Adjust: (ADMUX) ADLAR = 1
 
-PA0: (ADMUX) MUX4 MUX3 MUX2 MUX1 MUX0 = 0 0 0 0 0 
+	PA0: (ADMUX) MUX4 MUX3 MUX2 MUX1 MUX0 = 0 0 0 0 0 
 
-ADMUX:  
-	REFS1        REFS0     ADLAR         MUMX4       MUX3      MUX2      MUX1       MUX0 
-      1            1          1            0          0          0        0          0
-ADMUX = 0xE0
+	ADMUX:  
+		REFS1      REFS0      ADLAR       MUMX4      MUX3     MUX2      MUX1       MUX0 
+		  1          1          1           0         0        0          0          0
+	ADMUX = 0xE0
 
-Assuming auto-trigger will be used: (ADCSRA) ADATE = 1
+	Assuming auto-trigger will be used: (ADCSRA) ADATE = 1
 
-ADCSRA:	
-		     ADEN     ADSC       ADATE      ADIF    ADIE      ADPS2       ADPS1        ADPS0  
-              1         0          1         1        0         0           1            1
-ADCSRA = 0xB3 
+	ADCSRA:	
+				ADEN     ADSC       ADATE      ADIF    ADIE      ADPS2       ADPS1      ADPS0  
+				 1        0           1         1       0          0           1          1
+	ADCSRA = 0xB3 
+>[!NOTE]
+>1. Do not start conversion during this (write 0 to ADSC) 
+>2. Clear interrupt flag (tells you when conversion is finished)
+>3. Do not enable interrupts ADIE
 
-1. Do not start conversion during this (write 0 to ADSC) 
+	Now setup the special function I/O register for ADATE:
 
-2. Clear interrupt flag (tells you when conversion is finished)
+	We will complete a conversion for compare match for Timer0/Counter0:
 
-3. Do not enable interrupts ADIE
+	(SFIO) ADTS2 ADTS1 ADTS0 = 0 0 0 
 
-Now setup the special function I/O register for ADATE:
-
-We will complete a conversion for compare match for Timer0/Counter0:
-
-(SFIO) ADTS2 ADTS1 ADTS0 = 0 0 0 
-
-SFIO: 
-	ADTS2 ADTS1 ADTS0 ... ... ... ... ...
-      0     0     0   (KEEP ALL OTHER BITS THE SAME)
+	SFIO: 
+		ADTS2 ADTS1 ADTS0 ... ... ... ... ...
+		0     0     0   (KEEP ALL OTHER BITS THE SAME)
 
