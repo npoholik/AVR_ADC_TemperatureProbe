@@ -16,9 +16,7 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 
 > [!IMPORTANT] 
 > 1. Other servo motors will vary in required pulse width to accomplish the results listed below
-
 > 2. If servo motor becomes unstable, these calculations will have to be adjusted according to the spec sheet of the respective motor
-
 > 3. Other temperature sensors will have a different voltage range and will need to be accounted for
 
 
