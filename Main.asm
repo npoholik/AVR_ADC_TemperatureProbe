@@ -34,36 +34,38 @@ Loop: SBIS ADCSRA, 4 ; check if ADIF is set
 
     IN R16, ADCL
     IN R17, ADCH
-    COM R17
-    OUT PORTD, R17 ; output the digital binary representation of temp onto LEDs
+
+    IN R20, R17
+    COM R20
+    OUT PORTD, R20 ; output the digital binary representation of temp onto LEDs
 
     SBI ADCSRA, 4 ; clears the ADIF (allow for free running mode to continue)
 
-    Range8190:              ;8190 refers to a temperature range of 81 -> 90 degrees Fahrenheit
+    Range81to90:              ;8190 refers to a temperature range of 81 -> 90 degrees Fahrenheit
         CPI R17, 0x51       ; this format for range labels is true for the following ones as well
-        BRLO Range7180
+        BRLO Range71to80
         RJMP SW6
-    Range7180:
+    Range71to80:
         CPI R17, 0x47
-        BRLO Range6170
+        BRLO Range61to70
         RJMP SW5
     Range6170:
         CPI R17, 0x3D
-        BRLO Range5160
+        BRLO Range51to60
         RJMP SW4
     Range5160:
         CPI R17, 0x33
-        BRLO Range41-50
+        BRLO Range41to50
         RJMP SW3
-    Range41-50:
+    Range41to50:
         CPI R17, 0x29
-        BRLO Range32-40
+        BRLO Range32to40
         RJMP SW2
-    Range32-40:
+    Range32to40:
         CPI R17, 0x20
-        BRLO Range0-31
+        BRLO Range0to31
         RJMP SW1
-    Range0-31:
+    Range0to31:
         RJMP SW0
 
 ; The following will turn the servo motor the corresponding number of degrees from angle 0 degree axis

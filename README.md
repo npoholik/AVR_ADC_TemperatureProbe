@@ -36,19 +36,19 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 
     CS02 CS01 CS00 = 0 1 1 
 
-    1 MHz / 64 = 15.625 kHz
+    1 MHz / (64 * 256) = 61 Hz
 
     TCCR0 = 01101011 = 0x6B
 
-    Period of Timer: 1/ 15.625 kHz = 64 us
+    Period of Timer: 1/ 61 Hz = 16.39344 ms
 
 ### OCR0 Calculations: 
-	0 Degrees: Output a pulse with a pulse width of 0.667 ms and period of 20 ms continuously:
+	0 Degrees: Output a pulse with a pulse width of 1 ms and period of 20 ms continuously:
 		Duty Cycle: 1 ms / 20 ms * 100 = 5%  
 		# of counts = 1 ms / 64 us = 15.625 ~= 16  
 		OCR0 = # of counts - 1 = 16 - 1 = 15  
 
-	30 Degrees: Output a pulse with a pulse width of  ms and a period of 20 ms continously:
+	30 Degrees: Output a pulse with a pulse width of 1.17 ms and a period of 20 ms continously:
 		Duty Cycle: 1.17 ms / 20 ms * 100= 5.85%
 		# of counts = 1.17 ms / 64 us = 18.28125 ~= 18
 		OCR0 = # of counts - 1 = 18 - 1 = 17
