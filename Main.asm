@@ -49,11 +49,11 @@ Loop: SBIS ADCSRA, 4 ; check if ADIF is set
         CPI R17, 0x47
         BRLO Range61to70
         RJMP SW5
-    Range6170:
+    Range61to70:
         CPI R17, 0x3D
         BRLO Range51to60
         RJMP SW4
-    Range5160:
+    Range51to60:
         CPI R17, 0x33
         BRLO Range41to50
         RJMP SW3
