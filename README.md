@@ -6,7 +6,7 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
 ## ASSUMPTIONS FOR ALL CALCULATIONS:
 1. Target MCU: AVR atmega32a
 2. Target MCU Clock: 1 MHz
-## Links:
+## Target Equipment Links:
 [MCU: AVR atmega32a](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmega32A-DataSheet-Complete-DS40002072A.pdf)
 
 [Servo Motor: Hitec RCD USA 31422](https://www.jameco.com/Jameco/Products/ProdDS/395786.pdf)
