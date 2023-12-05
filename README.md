@@ -43,40 +43,31 @@ The goal of this project is to incorporate a temperature sensor and servo motor 
     Period of Timer: 1/ 61 Hz = 16.39344 ms
 
 ### OCR0 Calculations: 
-	0 Degrees: Output a pulse with a pulse width of 1 ms and period of 20 ms continuously:
-		Duty Cycle: 1 ms / 20 ms * 100 = 5%  
-		# of counts = 1 ms / 64 us = 15.625 ~= 16  
-		OCR0 = # of counts - 1 = 16 - 1 = 15  
 
-	30 Degrees: Output a pulse with a pulse width of 1.17 ms and a period of 20 ms continously:
-		Duty Cycle: 1.17 ms / 20 ms * 100= 5.85%
-		# of counts = 1.17 ms / 64 us = 18.28125 ~= 18
-		OCR0 = # of counts - 1 = 18 - 1 = 17
+>[EQUATIONS]
+>1. Duty Cycle = (Time High)/(Period of Timer) * 100
+>2. OCR0 = (Duty Cycle * 256)/100 - 1
 
-	60 Degrees: Output a pulse width of 1.33 ms and period of 20 ms continously
-		Duty Cycle: 1.33 ms / 20 ms * 100 = 6.65%
-		# of counts = 1.33 ms / 64 us = 20.78125 ~= 21
-		OCR0 = # of counts - 1 = 21 - 1 = 20
+	0 Degrees: Output a positive pulse width of 0.667 ms and period of 20 ms continuously:
+		OCR0 = 8
 
-	90 Degrees: Output a pulse width of 1.5 ms and period of 20 ms continously 
-		Duty Cycle: 1.5 ms / 20 ms * 100 = 7.5%
-		# of counts = 1.5 ms / 64 us = 23.4375 ~= 23
-		OCR0 = # of counts - 1 = 23 - 1 = 22
+	30 Degrees: Output a positive pulse width of 0.832 ms and a period of 20 ms continously:
+		OCR0 = 12
 
-	120 Degrees: Output a pulse width of 1.67 ms and period of 20 ms continously
-		Duty Cycle: 1.67 ms / 20 ms * 100 = 8.35 %
-		# of counts = 1.67 ms / 64 us = 26.09375 ~= 26
-		OCR0 = # of counts - 1 = 26 - 1 = 25
+	60 Degrees: Output a positive pulse width of 1.153 ms and period of 20 ms continously
+		OCR0 = 17
 
-	150 Degrees: Output a pulse width of 1.84 ms and period of 20 ms continously
-		Duty Cycle: 1.84 ms / 20 ms * 100 = 9.2%
-		# of counts = 1.84 ms / 64 us = 28.75 ~= 29
-		OCR0 = # of counts - 1 = 29 - 1 = 28
+	90 Degrees: Output a positive pulse width of 1.409 ms and period of 20 ms continously 
+		OCR0 = 21
 
-	180 Degrees: Output a pulse width of 2 ms and period of 20 ms continously 
-		Duty Cycle: 2 ms / 20 ms * 100 = 10%
-		# of counts = 2 ms / 64 us = 31.25 ~= 31
-		OCR0 = # of counts - 1 = 31 - 1 = 30
+	120 Degrees: Output a positive pulse width of 1.729 ms and period of 20 ms continously
+		OCR0 = 26
+
+	150 Degrees: Output a positive pulse width of 2 ms and period of 20 ms continously
+		OCR0 = 30
+
+	180 Degrees: Output a positive pulse width of 2.241 ms and period of 20 ms continously 
+		OCR0 = 34
 
 -----------------------------------------------------------------------------------------------------
 
