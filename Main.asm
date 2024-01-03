@@ -4,10 +4,18 @@
 ; File Saved as: Main.asm
 ; For AVR: STK500 with Atmega32A
 ; MCU Clock Frequency: 1 MHz
+; Program Goal: Calculate analog to digital conversion of LM34CA Temperature Sensor and adjust LEDs and servo motor accordingly
 ;-------------------------------------------------------------------------------------
 
-JMP Init:
+; For assembler (will need to provide file path):
+.include m32def.inc
 
+; Interrupt Vector Table:
+;===================================
+JMP Init
+
+; Start Main Program:
+;===================================
 .ORG 0x002A
 Init:
 ; Initialize PB3 as output (for OC0) 
