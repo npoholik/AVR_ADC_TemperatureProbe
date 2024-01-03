@@ -1,3 +1,11 @@
+;-------------------------------------------------------------------------------------
+; Written By: Nikolas Poholik
+; Date: 12/5/23
+; File Saved as: Main.asm
+; For AVR: STK500 with Atmega32A
+; MCU Clock Frequency: 1 MHz
+;-------------------------------------------------------------------------------------
+
 JMP Init:
 
 .ORG 0x002A
