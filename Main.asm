@@ -7,8 +7,8 @@
 ; Program Goal: Calculate analog to digital conversion of LM34CA Temperature Sensor and adjust LEDs and servo motor accordingly
 ;-------------------------------------------------------------------------------------
 
-; For assembler (will need to provide file path):
-.include m32def.inc
+; For assembler (will need to provide full file path):
+.include "m32def.inc"
 
 ; Interrupt Vector Table:
 ;===================================
